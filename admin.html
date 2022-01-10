@@ -12,11 +12,12 @@
 
 <body>
 
-
     <input type="text" name="email" id="email" placeholder="name">
     <input type="password" name="password" id="password">
-
-    <button class="btn btn-primary" onclick="signUp()">SignUp</button>
+    <button class="btn btn-primary" onclick="signUp()">Sign Up</button>
+    <button class="btn btn-primary" onclick="signIn()">Sign In</button>
+    <button class="btn btn-danger" onclick="logOut()">Log Out</button>
+    <div class="btn btn-success dark-text loginStatus">Not Logged In</div>
 
 
     <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
@@ -41,8 +42,8 @@
 
     <script src="admin.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
