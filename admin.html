@@ -1,49 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
     <title>admin</title>
-</head>
+  </head>
 
-<body>
-
-    <input type="text" name="email" id="email" placeholder="name">
-    <input type="password" name="password" id="password">
+  <body>
+    <input type="text" name="email" id="email" placeholder="name" />
+    <input type="password" name="password" id="password" />
     <button class="btn btn-primary" onclick="signUp()">Sign Up</button>
     <button class="btn btn-primary" onclick="signIn()">Sign In</button>
     <button class="btn btn-danger" onclick="logOut()">Log Out</button>
-    <div class="btn btn-success dark-text loginStatus">Not Logged In</div>
+    <!-- login status -->
+    <div class="btn btn-success dark-text loginStatus"></div>
 
+    <!-- reports -->
+
+    <!-- Add Questions -->
+    <div class="addQues">
+      <button class="bnt btn-primary qBtn">Add Question</button>
+      <label for="multi">
+        Multiple Question<input
+          type="radio"
+          name="qType"
+          id="multi"
+          value="multi"
+          checked
+        />
+      </label>
+      <label for="single">
+        Single Question
+        <input type="radio" name="qType" id="single" value="single" />
+      </label>
+      <label for="data">
+        Data Question <input type="radio" name="qType" id="data" value="data" />
+      </label>
+    </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
 
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyBD5cKHyJr3zvABoG73hP6Urx4IiQ1JLoM",
-            authDomain: "surveyreport-5c804.firebaseapp.com",
-            projectId: "surveyreport-5c804",
-            storageBucket: "surveyreport-5c804.appspot.com",
-            messagingSenderId: "525693467128",
-            appId: "1:525693467128:web:6f16efd42f22a7276ebe0d",
-            measurementId: "G-B4KDZE6YYV"
-        };
+      const firebaseConfig = {
+        apiKey: "AIzaSyBD5cKHyJr3zvABoG73hP6Urx4IiQ1JLoM",
+        authDomain: "surveyreport-5c804.firebaseapp.com",
+        projectId: "surveyreport-5c804",
+        storageBucket: "surveyreport-5c804.appspot.com",
+        messagingSenderId: "525693467128",
+        appId: "1:525693467128:web:6f16efd42f22a7276ebe0d",
+        measurementId: "G-B4KDZE6YYV"
+      };
 
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const firestore = firebase.firestore();
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const firestore = firebase.firestore();
     </script>
 
     <script src="admin.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
