@@ -25,7 +25,7 @@
     <!-- reports -->
 
     <!-- Add Questions -->
-    <div class="addQues">
+    <div class="quesSec">
       <button class="bnt btn-primary qBtn">Add Question</button>
       <label for="multi">
         Multiple Question<input
@@ -43,6 +43,10 @@
       <label for="data">
         Data Question <input type="radio" name="qType" id="data" value="data" />
       </label>
+      <div class="quesAdd">
+
+      </div>
+      <button onclick="sendingToDb()">send</button>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
