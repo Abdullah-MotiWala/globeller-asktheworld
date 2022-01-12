@@ -39,7 +39,7 @@ auth.onAuthStateChanged((user) => {
   if (user) {
     uid = user.uid;
     document.querySelector(".loginStatus").innerHTML = user.email;
-    quesObj.author = user.email;
+    // quesObj.author = user.email;
     // ...
   } else {
     document.querySelector(".loginStatus").innerHTML = "Not Logged In";
@@ -142,7 +142,8 @@ const saveInDb = (obj) => {
   firestore
     .collection("reports")
     .doc(uid)
-    .set(obj)
+    .collection("questions")
+    .add(obj)
     .then(() => {
       alert("Report saved");
     })
