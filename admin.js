@@ -39,6 +39,7 @@ auth.onAuthStateChanged((user) => {
   if (user) {
     uid = user.uid;
     document.querySelector(".loginStatus").innerHTML = user.email;
+    quesObj.author = user.email;
     // ...
   } else {
     document.querySelector(".loginStatus").innerHTML = "Not Logged In";
@@ -68,11 +69,10 @@ const signUp = () => {
 const signIn = () => {
   let userEmail = document.getElementById("email").value;
   let userPassword = document.getElementById("password").value;
-  console.log(userEmail, userPassword);
   auth
     .signInWithEmailAndPassword(userEmail, userPassword)
     .then((userCred) => {
-      const user = userCred.user;
+      const userName = userCred.user;
       alert("Sign In SuccessFully");
       document.getElementById("email").value = "";
       document.getElementById("password").value = "";
@@ -101,10 +101,7 @@ const logOut = () => {
 //DATABASE FUNC 1(): creating obj for db
 const createDBObj = () => {
   const questions = quesDiv.children;
-  console.log(questions)
   for (let i = 0; i < questions.length; i++) {
-    console.log(questions[i]);
-
 
     //sending single question to db
     if (questions[i].classList.contains(`single${i}`)) {

@@ -9,8 +9,36 @@
 </head>
 <body>
 <a href="./admin.html">Admin PAnel</a>
+<div class="reports">
 
+</div>
 
+    <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyBD5cKHyJr3zvABoG73hP6Urx4IiQ1JLoM",
+        authDomain: "surveyreport-5c804.firebaseapp.com",
+        projectId: "surveyreport-5c804",
+        storageBucket: "surveyreport-5c804.appspot.com",
+        messagingSenderId: "525693467128",
+        appId: "1:525693467128:web:6f16efd42f22a7276ebe0d",
+        measurementId: "G-B4KDZE6YYV"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const firestore = firebase.firestore();
+    </script>
+
+    <script src="admin.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
     <script src="app.js"></script>
 </body>
 </html>
