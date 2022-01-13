@@ -40,7 +40,7 @@ const getReports = () => {
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         console.log("Runnig");
-        console.log("docId", doc.id);
+        console.log("docId", doc.id,doc.data().singleArr);
       });
     });
 };

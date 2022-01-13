@@ -144,8 +144,8 @@ const saveInDb = (obj) => {
   firestore
     .collection("reports")
     .doc(uid)  
-    .collection("questions")
-    .add(obj)
+    // .collection("questions")
+    .set(obj)
     .then(() => {
       alert("Report saved");
     })
