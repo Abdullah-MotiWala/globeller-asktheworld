@@ -38,7 +38,9 @@ const addQue = () => {
 auth.onAuthStateChanged((user) => {
   if (user) {
     uid = user.uid;
+    curEmail = user.email
     document.querySelector(".loginStatus").innerHTML = user.email;
+    quesObj.author = user.email
     // quesObj.author = user.email;
     // ...
   } else {
@@ -57,8 +59,8 @@ const signUp = () => {
       alert("Sign Up SuccessFully");
       document.getElementById("email").value = "";
       document.getElementById("password").value = "";
-      console.log(user.email);
     })
+
     .catch((error) => {
       const errorMessage = error.message;
       alert(errorMessage);
@@ -141,7 +143,7 @@ const saveInDb = (obj) => {
   // saving in DB
   firestore
     .collection("reports")
-    .doc(uid)
+    .doc(uid)  
     .collection("questions")
     .add(obj)
     .then(() => {
