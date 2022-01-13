@@ -168,7 +168,7 @@ const createQue = (qType) => {
   queDetailDiv.classList.add(qType);
 
   if (qType == "single") {
-    creRad(["true", "false"]);
+    creRad('single',["true", "false"], queDetailDiv);
   }
   if (qType == "multi") {
     console.log(qType);
@@ -181,13 +181,13 @@ const createQue = (qType) => {
 };
 
 //DOM FUNCTION 2: creating Radio for single Questions
-const creRad = (opt) => {
+const creRad = (type, opt, parent) => {
   for (let i = 0; i < opt.length; i++) {
     let textNode = document.createTextNode(opt[i]);
     let creLabel = document.createElement("label");
     let createRad = document.createElement("input");
     createRad.setAttribute("type", "radio");
-    createRad.setAttribute("name", `single${qNo}`);
+    createRad.setAttribute("name", `${type}${qNo}`);
     createRad.setAttribute("value", opt[i]);
     if (i == 0) {
       createRad.setAttribute("checked", "checked");
@@ -195,7 +195,7 @@ const creRad = (opt) => {
     creLabel.appendChild(textNode);
     creLabel.appendChild(createRad);
     //appending to question bar
-    queDetailDiv.appendChild(creLabel);
+    parent.appendChild(creLabel);
   }
 };
 
