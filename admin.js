@@ -31,16 +31,16 @@ const addQue = () => {
   queDetailDiv = document.createElement("div");
   queDetailDiv.setAttribute("class", "questionDiv");
   let quesType = document.querySelector("input[name='qType']:checked").value;
-  createQue(quesType)
-}
+  createQue(quesType);
+};
 
 //FIREBAE FUNC 1:authStateChange
 auth.onAuthStateChanged((user) => {
   if (user) {
     uid = user.uid;
-    curEmail = user.email
+    curEmail = user.email;
     document.querySelector(".loginStatus").innerHTML = user.email;
-    quesObj.author = user.email
+    // quesObj.author = user.email
     // quesObj.author = user.email;
     // ...
   } else {
@@ -98,18 +98,16 @@ const logOut = () => {
     });
 };
 
-
-
 //DATABASE FUNC 1(): creating obj for db
 const createDBObj = () => {
   const questions = quesDiv.children;
   for (let i = 0; i < questions.length; i++) {
-
     //sending single question to db
     if (questions[i].classList.contains(`single${i}`)) {
       singleArr.push({
         q: document.querySelector(`.singleqBar${i}`).value,
-        isTrue: document.querySelector(`input[name = single${i}]:checked`).value ==
+        isTrue:
+          document.querySelector(`input[name = single${i}]:checked`).value ==
           "true"
       });
     }
@@ -123,7 +121,7 @@ const createDBObj = () => {
 
     //multiQuestion to Db
     else if (questions[i].classList.contains(`multi${i}`)) {
-      console.log(document.querySelector(`.ulForOpt${0}`).children)
+      console.log(document.querySelector(`.ulForOpt${0}`).children);
       let optionsUl = document.querySelector(`.ulForOpt${i}`).children;
       let options = [];
       for (let i = 0; i < optionsUl.length; i++) {
@@ -141,11 +139,16 @@ const createDBObj = () => {
 //DATABASE FUNC 2(database):adding obj to database
 const saveInDb = (obj) => {
   // saving in DB
+  let time = new Date();
+  let timeStamp = time.getTime().toString();
   firestore
     .collection("reports")
-    .doc(uid)  
-    // .collection("questions")
-    .set(obj)
+    .doc(timeStamp)
+    .set({
+      uid: timeStamp,
+      author: curEmail,
+      questions: obj
+    })
     .then(() => {
       alert("Report saved");
     })
@@ -154,8 +157,7 @@ const saveInDb = (obj) => {
     });
 };
 
-
-//DOM FUNCTION 1: creating question 
+//DOM FUNCTION 1: creating question
 const createQue = (qType) => {
   //creating Questions
   qBar = document.createElement("input");
@@ -164,12 +166,11 @@ const createQue = (qType) => {
 
   queDetailDiv.classList.add(`${qType}${qNo}`);
   queDetailDiv.classList.add(qType);
- 
 
-  if (qType == 'single') {
-    creRad(['true', 'false']);
+  if (qType == "single") {
+    creRad(["true", "false"]);
   }
-  if (qType == 'multi') {
+  if (qType == "multi") {
     console.log(qType);
     queDetailDiv.appendChild(creUl(qType));
   }
@@ -177,10 +178,9 @@ const createQue = (qType) => {
   quesDiv.appendChild(queDetailDiv);
   queDetailDiv.appendChild(qBar);
   qNo++;
-}
+};
 
-
-//DOM FUNCTION 2: creating Radio for single Questions 
+//DOM FUNCTION 2: creating Radio for single Questions
 const creRad = (opt) => {
   for (let i = 0; i < opt.length; i++) {
     let textNode = document.createTextNode(opt[i]);
@@ -197,11 +197,11 @@ const creRad = (opt) => {
     //appending to question bar
     queDetailDiv.appendChild(creLabel);
   }
-}
+};
 
 // DOM FUCNTION 3: creating ul for multi Questions
 const creUl = (type) => {
-  console.log(type)
+  console.log(type);
   //creating ul for options
   let ulForOpt = document.createElement("ul");
   ulForOpt.setAttribute("class", `ulForOpt${qNo}`);
@@ -222,5 +222,5 @@ const creUl = (type) => {
     // appending to ul
     ulForOpt.appendChild(liForOpt);
   }
-  return ulForOpt
-}
+  return ulForOpt;
+};

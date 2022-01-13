@@ -1,80 +1,38 @@
-let multiArr = [];
-let singleArr = [];
-let dataArr = [];
-let docs = [];
+// let multiArr = [];
+// let singleArr = [];
+// let dataArr = [];
+const repDiv = document.querySelector(".reports");
+let questionsObj;
+
+//FIREBASE FUN 1: getting questions doc
 const getReports = () => {
-  // firestore.collection("reports")
-  //     .get()
-  //     .then((querySnapshot) => {
-  //         console.log('running')
-  //         querySnapshot.forEach((doc) => {
-  //             console.log(doc.id);
-  // doc.data() is never undefined for query doc snapshots
-  // let docIdUser = doc.id;
-  // docs.push(docIdUser);
-  // firestore.collection("reports")
-  //     .doc(docIdUser)
-  //     .collection('questions')
-  //     .get()
-  //     .then((querySnapshot) => {
-  //         querySnapshot.forEach((doc) => {
-  //             // doc.data() is never undefined for query doc snapshots
-  //             console.log(doc.id, '=>', doc.data());
-  //         });
-  //     });
-  // })
-  // })
-  //   firestore.collection("reports")
-  //     .get()
-  //     .then((querySnapshot) => {
-  //       querySnapshot.forEach((doc) => {
-  //         // doc.data() is never undefined for query doc snapshots
-  //         console.log(doc.id);
-  //       });
-  //     });
   firestore
     .collection("reports")
     .get()
     .then((querySnapshot) => {
-      console.log("running");
       querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log("Runnig");
-        console.log("docId", doc.id,doc.data().singleArr);
+        questionsObj = doc.data();
+        showingRep(questionsObj);
       });
     });
 };
-// const getReports = () => {
-//     firestore.collection("reports")
-//         .get()
-//         .then((querySnapshot) => {
-//             console.log('running')
-//             querySnapshot.forEach((doc) => {
-//                 // doc.data() is never undefined for query doc snapshots
-//                 let docId = doc.id;
-//                 firestore.collection("reports")
-//                     .doc(docId)
-//                     .collection('questions')
-//                     .get()
-//                     .then((querySnapshot) => {
-//                         querySnapshot.forEach((doc) => {
-//                             // doc.data() is never undefined for query doc snapshots
-//                             console.log(doc.id, '=>', doc.data());
-//                         });
-//                     });
-//             })
-//         })
-// }
-// firestore.collection("reports").doc('MmFigtYDaDPT6ZM5RRrW9LLQ44r2').get().then((doc) => {
-//     if (doc.exists) {
-//         console.log("Document data:", doc.data());
-//     } else {
-//         // doc.data() will be undefined in this case
-//         console.log("No such document!");
-//     }
-// }).catch((error) => {
-//     console.log("Error getting document:", error);
-// });
-// }
-
 getReports();
+//showing reports
+const showingRep = (queObj) => {
+  let queDiv = eleCreator("div");
+
+  let queAnchor = eleCreator("a");
+  queAnchor.setAttribute("href", `reportQue.html?id=${queObj.uid}`);
+  let anchorText = document.createTextNode("open report");
+  childAppendFun(queAnchor, anchorText);
+
+  let qDivText = document.createTextNode(`author : ${queObj.author}`);
+  childAppendFun(queDiv, queAnchor);
+  childAppendFun(queDiv, qDivText);
+  childAppendFun(repDiv, queDiv);
+  console.log(queDiv);
+};
+
+
+const eleCreator = (ele) => document.createElement(ele);
+const childAppendFun = (parent, child) => parent.appendChild(child);
