@@ -1,4 +1,56 @@
-.submitRep{
-    display: none;
-    
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap");
+* {
+  font-family: "Fira Sans", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+.adminDiv {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+.reportHeader {
+  text-align: center;
+  color: #1d3557;
+  padding: 5px;
+  background-color: #a8dadc;
+  letter-spacing: 0.75em;
+}
+.adminBtn {
+  background-color: #1d3557;
+  padding: 5px;
+  border-radius: 5px;
+}
+.adminBtn > a {
+  color: #f1faee;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  letter-spacing: 0.5em;
+}
+.submitRep {
+  display: none;
+}
+.queReport {
+  background-color: #a8dadc;
+  color: #457b9d;
+  display: flex;
+  justify-content: space-around;
+  border-radius: 10px;
+  margin: 5px auto;
+  width: 90vw;
+
+  font-size: 1.5rem;
+  padding: 10px;
+}
+.repAnchor {
+  color: #e63946;
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 0.5em;
+  background-color: #9bccce;
+  border-radius: 5px;
+  margin-right: 12px;
+  
 }

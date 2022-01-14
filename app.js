@@ -20,10 +20,12 @@ getReports();
 //showing reports
 const showingRep = (queObj) => {
   let queDiv = eleCreator("div");
+  queDiv.classList.add("queReport")
 
   let queAnchor = eleCreator("a");
   queAnchor.setAttribute("href", `reportQue.html?id=${queObj.uid}`);
-  let anchorText = document.createTextNode("open report");
+  let anchorText = document.createTextNode("Open Report");
+  queAnchor.classList.add("repAnchor")
   childAppendFun(queAnchor, anchorText);
 
   let qDivText = document.createTextNode(`author : ${queObj.author}`);
