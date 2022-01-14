@@ -147,7 +147,8 @@ const saveInDb = (obj) => {
     .set({
       uid: timeStamp,
       author: curEmail,
-      questions: obj
+      questions: obj,
+      answers : []
     })
     .then(() => {
       alert("Report saved");
