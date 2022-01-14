@@ -3,26 +3,50 @@ let repQueDiv = document.querySelector(".ansDiv");
 let repQues;
 let qNo = 1;
 let subRepBtn = document.querySelector(".submitRep");
+let startSurBtn = document.querySelector(".startSur");
+let formDiv = document.querySelector(".infoDiv");
 
-const getRepQue = () => {
-  firestore
-    .collection("reports")
-    .doc(uid)
-    .get()
-    .then((doc) => {
-      repQues = doc.data().questions;
-      showingQue(repQues);
-      subRepBtn.style.display = "initial";
-      console.log(repQues)
-    });
+startSurBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  startSur();
+});
+//creating state to preventing sending data with error on db
+let state;
+
+let startSur = () => {
+  repQueDiv.style.display = "flex";
+  console.log(repQueDiv.style.display);
+  formDiv.style.display = "none";
+  // if (repQues.length == 0) {
+    //clock function issue
+    // initializeClock("clockdiv");
+  // }
 };
-getRepQue();
+
+(function getRepQue() {
+  try {
+    firestore
+      .collection("reports")
+      .doc(uid)
+      .get()
+      .then((doc) => {
+        repQues = doc.data().questions;
+        showingQue(repQues);
+        subRepBtn.style.display = "initial";
+        if (minutes == 10 && seconds == 0) {
+          initializeClock("clockdiv");
+        }
+      });
+  } catch (error) {
+    alert("Erro");
+  }
+})();
 
 //arr to send on firestore
 let singleArrAns = [];
 let multiArrAns = [];
 let dataArrAns = [];
-let userObj = {}
+let userObj = {};
 let quesObj = {
   singleArrAns,
   multiArrAns,
@@ -35,25 +59,28 @@ let multiAns = 0,
 
 //created obj send to db
 const sendindDb = () => {
-  console.log('sending Db running')
-  firestore
-    .collection("reports")
-    .doc(uid)
-    .update({
-        answers: firebase.firestore.FieldValue.arrayUnion(quesObj)
-      }
-    )
-    .then((doc) => {
-      alert('answer saved')
-    });
-}
-subRepBtn.addEventListener("click", () => {
+  state = true;
   addAns();
+  //sending user info on db
   userObj.name = document.querySelector("#name").value;
   userObj.email = document.querySelector("#email").value;
-  sendindDb()
-  //sending user info on db
-
+  if (state) {
+    console.log("sending Db running");
+    firestore
+      .collection("reports")
+      .doc(uid)
+      .update({
+        answers: firebase.firestore.FieldValue.arrayUnion(quesObj)
+      })
+      .then((doc) => {
+        alert("answer saved");
+        repQueDiv.innerHTML = "";
+        changePage();
+      });
+  }
+};
+subRepBtn.addEventListener("click", () => {
+  sendindDb();
 });
 
 //DOM FUN 1: creating questions divs
@@ -63,11 +90,11 @@ const showingQue = (queObjPara) => {
   let QdataArr = queObjPara.dataArr;
   for (let i = 0; i < QdataArr.length; i++) {
     let queDiv = eleCreator("div");
-    queDiv.classList.add('data')
-    queDiv.classList.add(i)
-    let qNoSpan = eleCreator("span")
-    let queNoText = document.createTextNode(`${qNo}`);
-    childAppendFun(qNoSpan, queNoText)
+    queDiv.classList.add("data");
+    queDiv.classList.add(i);
+    let qNoSpan = eleCreator("span");
+    let queNoText = document.createTextNode(`Q${qNo})`);
+    childAppendFun(qNoSpan, queNoText);
 
     let qSpan = eleCreator("span");
     let queText = document.createTextNode(`${QdataArr[i].q}`);
@@ -78,7 +105,7 @@ const showingQue = (queObjPara) => {
     childAppendFun(repQueDiv, queDiv);
 
     let ansBar = eleCreator("input");
-    ansBar.setAttribute("class", `answer${qNo} queData${i}`);
+    ansBar.setAttribute("class", `answer${qNo} queData${i} queData`);
     childAppendFun(queDiv, ansBar);
     qNo++;
   }
@@ -87,11 +114,11 @@ const showingQue = (queObjPara) => {
   let QsingleArr = queObjPara.singleArr;
   for (let i = 0; i < QsingleArr.length; i++) {
     let queDiv = eleCreator("div");
-    queDiv.classList.add('single')
-    queDiv.classList.add(i)
-    let qNoSpan = eleCreator("span")
-    let queNoText = document.createTextNode(`${qNo}`);
-    childAppendFun(qNoSpan, queNoText)
+    queDiv.classList.add("single");
+    queDiv.classList.add(i);
+    let qNoSpan = eleCreator("span");
+    let queNoText = document.createTextNode(`Q${qNo})`);
+    childAppendFun(qNoSpan, queNoText);
 
     let qSpan = eleCreator("span");
     let queText = document.createTextNode(`${QsingleArr[i].q}`);
@@ -115,10 +142,10 @@ const showingQue = (queObjPara) => {
   for (let i = 0; i < QmultiArr.length; i++) {
     let curMultiQ = QmultiArr[i];
     let queDiv = eleCreator("div");
-    queDiv.classList.add('multi')
-    let qNoSpan = eleCreator("span")
-    let queNoText = document.createTextNode(`${qNo}`);
-    childAppendFun(qNoSpan, queNoText)
+    queDiv.classList.add("multi");
+    let qNoSpan = eleCreator("span");
+    let queNoText = document.createTextNode(`Q${qNo})`);
+    childAppendFun(qNoSpan, queNoText);
 
     let qSpan = eleCreator("span");
     let queText = document.createTextNode(`${QmultiArr[i].q}`);
@@ -132,6 +159,7 @@ const showingQue = (queObjPara) => {
     let ulOpts = creUl("multi", curMultiQ.options);
 
     childAppendFun(queDiv, ulOpts);
+    qNo++;
   }
   console.log(QmultiArr);
 };
@@ -154,7 +182,6 @@ const creRad = (type, opt, parent) => {
     creLabel.appendChild(createRad);
     //appending to question bar
     parent.appendChild(creLabel);
-
   }
 };
 
@@ -188,69 +215,104 @@ const creUl = (type, dataOpts) => {
 
 //DB FUNCTION 1:sending To DB
 const addAns = () => {
+  state = true;
+  try {
+    const questions = repQueDiv.children;
+    //for single ques
+    for (let i = 0; i < questions.length; i++) {
+      if (questions[i].classList.contains("single")) {
+        let q = questions[i].childNodes[1].textContent;
+        console.log(q);
+        let qNo = questions[i].childNodes[0].textContent;
 
-  const questions = repQueDiv.children;
-  //for single ques
-  for (let i = 0; i < questions.length; i++) {
-    if (questions[i].classList.contains('single')) {
-      let q = (questions[i].childNodes[1].textContent)
-      console.log(q)
-      let qNo = questions[i].childNodes[0].textContent
-
-      let inputCheckVal = document.querySelector(`input[name=single${qNo}]:checked`).value;
-      let qDetailsArr = repQues.singleArr;
-      //chekcing if user select correct option
-      if ((qDetailsArr[singleAns].isTrue).toString() == inputCheckVal) {
-        qResult = true
-      } else {
-        qResult = false
+        let inputCheckVal = document.querySelector(
+          `input[name = single${i}]:checked`
+        ).value;
+        console.log(inputCheckVal);
+        let qDetailsArr = repQues.singleArr;
+        //chekcing if user select correct option
+        if (qDetailsArr[singleAns].isTrue.toString() == inputCheckVal) {
+          qResult = true;
+        } else {
+          qResult = false;
+        }
+        // pushing to local array
+        singleArrAns.push({
+          q,
+          qResult
+        });
+        singleAns++;
       }
-      // pushing to local array
-      singleArrAns.push({
-        q,
-        qResult
-      })
-      singleAns++
-    }
 
-    //for multi ques
-    if (questions[i].classList.contains('multi')) {
-      let q = (questions[i].childNodes[1].textContent)
-      let qNo = questions[i].childNodes[0].textContent
-      let opts = questions[i].getElementsByTagName("li")
-      let inputCheckVal = document.querySelector(`input[name=multi${qNo}]:checked`).value;
+      //for multi ques
+      if (questions[i].classList.contains("multi")) {
+        let q = questions[i].childNodes[1].textContent;
+        let qNo = questions[i].childNodes[0].textContent;
+        let opts = questions[i].getElementsByTagName("li");
+        let inputCheckVal = document.querySelector(
+          `input[name = multi${i}]:checked`
+        ).value;
 
-      let qDetailsArr = repQues.multiArr;
-      console.log(qDetailsArr[multiAns].correct)
-      let qResult;
-      //checking user select the correct option 
-      if (qDetailsArr[multiAns].correct == inputCheckVal) {
-        qResult = true
-      } else {
-        qResult = false
+        let qDetailsArr = repQues.multiArr;
+        console.log(qDetailsArr[multiAns].correct);
+        let qResult;
+        //checking user select the correct option
+        if (qDetailsArr[multiAns].correct == inputCheckVal) {
+          qResult = true;
+        } else {
+          qResult = false;
+        }
+        //pushing into local array
+        multiArrAns.push({
+          q,
+          chosenOpt: opts[inputCheckVal].innerText,
+          qResult
+        });
+        multiAns++;
       }
-      //pushing into local array
-      multiArrAns.push({
-        q,
-        chosenOpt: opts[inputCheckVal].innerText,
-        qResult
-      })
-      multiAns++
-    }
 
-    //for data Ques
-    if (questions[i].classList.contains('data')) {
-      let answer = document.querySelector(`.queData${i}`).value
-      console.log(answer)
-      let q = (questions[i].childNodes[1].textContent)
-      let qNo = questions[i].childNodes[0].textContent;
+      //for data Ques
+      if (questions[i].classList.contains("data")) {
+        let answer = document.querySelector(`.queData`).value;
+        console.log(answer);
+        let q = questions[i].childNodes[1].textContent;
+        let qNo = questions[i].childNodes[0].textContent;
 
-      dataArrAns.push({
-        q,
-        answer
-      })
+        dataArrAns.push({
+          q,
+          answer
+        });
+      }
     }
+  } catch (error) {
+    state = false;
+    alert("Fill all the questions");
   }
 };
 const eleCreator = (ele) => document.createElement(ele);
-const childAppendFun = (parent, child) => parent.appendChild(child)
+const childAppendFun = (parent, child) => parent.appendChild(child);
+let changePage = () => {
+  location.href = "index.html";
+};
+
+//timer
+let total = 600;
+let minutes = 10;
+let seconds = 0;
+function initializeClock(id) {
+  const clock = document.getElementById(id);
+  const timeinterval = setInterval(() => {
+    console.log(total);
+    minutes = Math.floor(total / 60);
+    seconds = total % 60;
+    clock.innerHTML = `${minutes} : ${seconds}`;
+    total--;
+    if (minutes == 1 && seconds == 59) {
+      alert("Only two minutes remains");
+    }
+    if (minutes == 0 && seconds == 0) {
+      clearInterval(timeinterval);
+      sendindDb();
+    }
+  }, 1000);
+}

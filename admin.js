@@ -4,6 +4,7 @@ const quesBtn = document.querySelector(".qBtn");
 let arr = [1, 2, 3];
 let qType;
 let qNo = 0;
+let uid = "i3gVHyk3HZN9BKliqJWVmc1XdC83";
 
 //arr to send on firestore
 let singleArr = [];
@@ -40,6 +41,7 @@ auth.onAuthStateChanged((user) => {
     uid = user.uid;
     curEmail = user.email;
     document.querySelector(".loginStatus").innerHTML = user.email;
+    getReports(curEmail)
     // quesObj.author = user.email
     // quesObj.author = user.email;
     // ...
@@ -148,7 +150,7 @@ const saveInDb = (obj) => {
       uid: timeStamp,
       author: curEmail,
       questions: obj,
-      answers : []
+      answers: []
     })
     .then(() => {
       alert("Report saved");
@@ -169,7 +171,7 @@ const createQue = (qType) => {
   queDetailDiv.classList.add(qType);
 
   if (qType == "single") {
-    creRad('single',["true", "false"], queDetailDiv);
+    creRad("single", ["true", "false"], queDetailDiv);
   }
   if (qType == "multi") {
     console.log(qType);
@@ -224,4 +226,18 @@ const creUl = (type) => {
     ulForOpt.appendChild(liForOpt);
   }
   return ulForOpt;
+};
+
+//Answer Reteriving
+//FIREBASE FUN 1: getting questions doc
+const getReports = (uid) => {
+  firestore
+    .collection("reports")
+    .where("author", "==", uid)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, "=>", doc.data().answers);
+      });
+    });
 };

@@ -4,16 +4,30 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <title>Questions</title>
   </head>
   <body>
-    It is report Question
-    <label for="name">Enter Your Name : <input type="text" id="name" class="name"></label>
-    <label for="email">Enter Your Email : <input type="email" id="email" class="email"></label>
-    <div class="ansDiv">
+    <div class="surHeader">
+      <h2 class="surTxt">You are in survey</h2>
+      <div id="clockdiv" class="timer"></div>
     </div>
-    <button class="btn submitRep">Submit Report</button>
+    <form class="infoDiv">
+      <label for="name"
+        >Enter Your Name :
+        <input type="text" id="name" class="name info" required
+      /></label>
+      <label for="email"
+        >Enter Your Email :
+        <input type="email" id="email" class="email info" required
+      /></label>
+      <button class="startSur">Start Surevy</button>
+      <div class="noQues">Start Survey Keep care</div>
+    </form>
+
+    <div class="ansDiv">
+      <button class="btn submitRep">Submit Report</button>
+    </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>

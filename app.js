@@ -36,5 +36,6 @@ const showingRep = (queObj) => {
 };
 
 
+
 const eleCreator = (ele) => document.createElement(ele);
 const childAppendFun = (parent, child) => parent.appendChild(child);

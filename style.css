@@ -4,6 +4,7 @@
   padding: 0;
   margin: 0;
 }
+/* index page */
 .adminDiv {
   width: 100vw;
   display: flex;
@@ -17,10 +18,13 @@
   background-color: #a8dadc;
   letter-spacing: 0.75em;
 }
-.adminBtn {
+.adminBtn,
+.startSur,
+.submitRep {
   background-color: #1d3557;
   padding: 5px;
   border-radius: 5px;
+  color: #f1faee;
 }
 .adminBtn > a {
   color: #f1faee;
@@ -52,5 +56,96 @@
   background-color: #9bccce;
   border-radius: 5px;
   margin-right: 12px;
-  
+}
+
+/* report Questions page */
+.surHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
+  letter-spacing: 0.25em;
+  font-weight: 1.25em;
+  width: 100vw;
+  background-color: #a8dadc;
+  color: #e63946;
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+.infoDiv {
+  display: flex;
+  flex-direction: column;
+}
+.info {
+  height: 30px;
+  width: 425px;
+  border: none;
+  border-bottom: 2px solid #000;
+  padding: 5px;
+  font-size: 1rem;
+}
+.info:focus {
+  outline: none;
+}
+.ansDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 10px;
+  display: none;
+}
+div.data,
+div.multi,
+div.single {
+  background-color: #457b9d;
+  border-radius: 20px;
+  width: 100vw;
+  min-height: 100px;
+  font-size: 1.5em;
+  margin: 5px;
+  border: 1px solid #a8dadc;
+  color: #f1faee;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding-left: 30px;
+}
+input.queData {
+  border-radius: 18px;
+  height: 50px;
+  width: 85vw;
+  border: none;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 1.25em;
+}
+input.queData:focus {
+  outline: none;
+}
+li {
+  list-style: none;
+}
+input.single {
+  margin-left: 5px;
+}
+.startSur,
+.submitRep {
+  font-size: 1.25rem;
+  font-weight: bold;
+  width: 181px;
+  height: 58px;
+  margin: 20px auto;
+}
+.timer {
+  background-color: #f1faee;
+  padding: 5px;
+  margin-right: 5px;
+  border-radius: 5px;
+  min-height: 50px;
+  min-width: 50px;
 }
