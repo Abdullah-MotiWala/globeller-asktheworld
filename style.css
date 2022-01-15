@@ -1,17 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap");
+
 * {
   font-family: "Fira Sans", sans-serif;
   padding: 0;
   margin: 0;
   box-sizing: border-box
 }
+/* 
+body {
+  width: 100vw;
+  overflow-x: hidden;
+} */
+
 /* index page */
 .adminDiv {
   width: 100vw;
   display: flex;
   justify-content: center;
-  margin: 10px;
+  margin: 10px auto;
 }
+
 .reportHeader {
   text-align: center;
   color: #1d3557;
@@ -19,6 +27,7 @@
   background-color: #a8dadc;
   letter-spacing: 0.75em;
 }
+
 .adminBtn,
 .startSur,
 .submitRep {
@@ -27,17 +36,20 @@
   border-radius: 5px;
   color: #f1faee;
 }
-.adminBtn > a {
+
+.adminBtn>a {
   color: #f1faee;
   font-size: 1rem;
   font-weight: bold;
   text-decoration: none;
   letter-spacing: 0.5em;
 }
+
 .submitRep {
   display: none;
 }
-.queReport , .queAns {
+
+.queReport, .queAns {
   background-color: #a8dadc;
   color: #457b9d;
   display: flex;
@@ -49,6 +61,7 @@
   font-size: 1.2em;
   padding: 10px;
 }
+
 .repAnchor {
   color: #e63946;
   text-decoration: none;
@@ -77,10 +90,12 @@
   top: 0;
   left: 0;
 }
+
 .infoDiv {
   display: flex;
   flex-direction: column;
 }
+
 .info {
   height: 30px;
   width: 425px;
@@ -89,9 +104,11 @@
   padding: 5px;
   font-size: 1rem;
 }
+
 .info:focus {
   outline: none;
 }
+
 .ansDiv {
   display: flex;
   flex-direction: column;
@@ -100,6 +117,7 @@
   margin-top: 10px;
   display: none;
 }
+
 div.data,
 div.multi,
 div.single {
@@ -117,6 +135,7 @@ div.single {
   justify-content: center;
   padding-left: 30px;
 }
+
 input.queData {
   border-radius: 18px;
   height: 50px;
@@ -126,15 +145,19 @@ input.queData {
   padding: 10px;
   font-size: 1.25em;
 }
+
 input.queData:focus {
   outline: none;
 }
+
 li {
   list-style: none;
 }
+
 input.single {
   margin-left: 5px;
 }
+
 .startSur,
 .submitRep {
   font-size: 1.25rem;
@@ -143,6 +166,7 @@ input.single {
   height: 58px;
   margin: 20px auto;
 }
+
 .timer {
   background-color: #f1faee;
   padding: 5px;
