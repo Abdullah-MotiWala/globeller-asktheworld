@@ -3,6 +3,7 @@
   font-family: "Fira Sans", sans-serif;
   padding: 0;
   margin: 0;
+  box-sizing: border-box
 }
 /* index page */
 .adminDiv {
@@ -36,16 +37,16 @@
 .submitRep {
   display: none;
 }
-.queReport {
+.queReport , .queAns {
   background-color: #a8dadc;
   color: #457b9d;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: space-between;
   border-radius: 10px;
   margin: 5px auto;
   width: 90vw;
-
-  font-size: 1.5rem;
+  font-size: 1.2em;
   padding: 10px;
 }
 .repAnchor {
@@ -56,6 +57,7 @@
   background-color: #9bccce;
   border-radius: 5px;
   margin-right: 12px;
+  min-width: 40%;
 }
 
 /* report Questions page */

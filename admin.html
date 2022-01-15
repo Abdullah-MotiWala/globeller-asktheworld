@@ -10,6 +10,7 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="style.css">
     <title>admin</title>
   </head>
 
@@ -22,18 +23,17 @@
     <!-- login status -->
     <div class="btn btn-success dark-text loginStatus"></div>
 
-    <!-- reports -->
-
+    
     <!-- Add Questions -->
     <div class="quesSec">
       <button class="btn-primary qBtn">Add Question</button>
       <label for="multi">
         Multiple Question<input
-          type="radio"
-          name="qType"
-          id="multi"
-          value="multi"
-          checked
+        type="radio"
+        name="qType"
+        id="multi"
+        value="multi"
+        checked
         />
       </label>
       <label for="single">
@@ -44,18 +44,19 @@
         Data Question <input type="radio" name="qType" id="data" value="data" />
       </label>
       <div class="quesAdd">
-
+        
       </div>
       <button onclick="sendingToDb()">send</button>
     </div>
+    <!-- reports -->
     <div class="repAns">
-      
+      <h1>Your Reports</h1>
     </div>
-
+    
     <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
-
+    
     <script>
       const firebaseConfig = {
         apiKey: "AIzaSyBD5cKHyJr3zvABoG73hP6Urx4IiQ1JLoM",

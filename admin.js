@@ -108,8 +108,7 @@ const createDBObj = () => {
     if (questions[i].classList.contains(`single${i}`)) {
       singleArr.push({
         q: document.querySelector(`.singleqBar${i}`).value,
-        isTrue:
-          document.querySelector(`input[name = single${i}]:checked`).value ==
+        isTrue: document.querySelector(`input[name = single${i}]:checked`).value ==
           "true"
       });
     }
@@ -228,7 +227,12 @@ const creUl = (type) => {
   return ulForOpt;
 };
 
+//Answers Link
+// let answers = []
+let ansDiv = document.querySelector(".repAns")
+
 //Answer Reteriving
+
 //FIREBASE FUN 1: getting questions doc
 const getReports = (uid) => {
   firestore
@@ -237,7 +241,32 @@ const getReports = (uid) => {
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        console.log(doc.id, "=>", doc.data().answers);
+        let ansDoc = doc.data().answers;
+        showingRep(ansDoc)
       });
     });
 };
+
+//showing ans
+const showingRep = (ansObj) => {
+  ansObj.forEach((ans) => {
+    let queDiv = eleCreator("div");
+    queDiv.classList.add("queAns")
+
+    let queAnchor = eleCreator("a");
+    queAnchor.setAttribute("href", `reportAns.html?user=${ans.userObj.name}`);
+    let anchorText = document.createTextNode("Look Answers");
+    queAnchor.classList.add("repAnchor")
+    childAppendFun(queAnchor, anchorText);
+
+    let qDivText = document.createTextNode(`user : ${ans.userObj.name}`);
+    childAppendFun(queDiv, queAnchor);
+    childAppendFun(queDiv, qDivText);
+    childAppendFun(ansDiv, queDiv);
+    console.log(queDiv);
+  })
+};
+
+
+const eleCreator = (ele) => document.createElement(ele);
+const childAppendFun = (parent, child) => parent.appendChild(child);
