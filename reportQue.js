@@ -15,12 +15,8 @@ let state;
 
 let startSur = () => {
   repQueDiv.style.display = "flex";
-  console.log(repQueDiv.style.display);
   formDiv.style.display = "none";
-  // if (repQues.length == 0) {
-    //clock function issue
-    // initializeClock("clockdiv");
-  // }
+  initializeClock("clockdiv")
 };
 
 (function getRepQue() {
@@ -33,9 +29,7 @@ let startSur = () => {
         repQues = doc.data().questions;
         showingQue(repQues);
         subRepBtn.style.display = "initial";
-        if (minutes == 10 && seconds == 0) {
-          initializeClock("clockdiv");
-        }
+        startSurBtn.style.display = "initial";
       });
   } catch (error) {
     alert("Erro");
@@ -65,7 +59,6 @@ const sendindDb = () => {
   userObj.name = document.querySelector("#name").value;
   userObj.email = document.querySelector("#email").value;
   if (state) {
-    console.log("sending Db running");
     firestore
       .collection("reports")
       .doc(uid)
@@ -155,13 +148,11 @@ const showingQue = (queObjPara) => {
     childAppendFun(queDiv, queText);
     childAppendFun(repQueDiv, queDiv);
 
-    // console.log(QmultiArr[i].options);
     let ulOpts = creUl("multi", curMultiQ.options);
 
     childAppendFun(queDiv, ulOpts);
     qNo++;
   }
-  console.log(QmultiArr);
 };
 
 //DOM FUNCTION 2: creating Radio for single Questions
@@ -175,9 +166,6 @@ const creRad = (type, opt, parent) => {
     createRad.classList.add(`${type}${qNo}`);
     createRad.classList.add(type);
     createRad.setAttribute("value", opt[i]);
-    // if (i == 0) {
-    //   createRad.setAttribute("checked", "checked");
-    // }
     creLabel.appendChild(textNode);
     creLabel.appendChild(createRad);
     //appending to question bar
@@ -193,7 +181,6 @@ const creUl = (type, dataOpts) => {
   options = dataOpts;
   for (let i = 0; i < dataOpts.length; i++) {
     // creating li options
-    console.log("loop running on 88");
     let liForOpt = document.createElement("li");
     liForOpt.setAttribute("class", `liOpt${qNo}`);
     textForOpt = eleCreator("span");
@@ -222,13 +209,11 @@ const addAns = () => {
     for (let i = 0; i < questions.length; i++) {
       if (questions[i].classList.contains("single")) {
         let q = questions[i].childNodes[1].textContent;
-        console.log(q);
         let qNo = questions[i].childNodes[0].textContent;
 
         let inputCheckVal = document.querySelector(
           `input[name = single${i}]:checked`
         ).value;
-        console.log(inputCheckVal);
         let qDetailsArr = repQues.singleArr;
         //chekcing if user select correct option
         if (qDetailsArr[singleAns].isTrue.toString() == inputCheckVal) {
@@ -254,7 +239,6 @@ const addAns = () => {
         ).value;
 
         let qDetailsArr = repQues.multiArr;
-        console.log(qDetailsArr[multiAns].correct);
         let qResult;
         //checking user select the correct option
         if (qDetailsArr[multiAns].correct == inputCheckVal) {
@@ -274,7 +258,6 @@ const addAns = () => {
       //for data Ques
       if (questions[i].classList.contains("data")) {
         let qResult = document.querySelector(`.queData`).value;
-        console.log(answer);
         let q = questions[i].childNodes[1].textContent;
         let qNo = questions[i].childNodes[0].textContent;
 
@@ -302,7 +285,6 @@ let seconds = 0;
 function initializeClock(id) {
   const clock = document.getElementById(id);
   const timeinterval = setInterval(() => {
-    console.log(total);
     minutes = Math.floor(total / 60);
     seconds = total % 60;
     clock.innerHTML = `${minutes} : ${seconds}`;

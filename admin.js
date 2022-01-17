@@ -83,7 +83,6 @@ const signIn = () => {
       alert("Sign In SuccessFully");
       document.getElementById("email").value = "";
       document.getElementById("password").value = "";
-      console.log(user.email);
     })
     .catch((error) => {
       const errorMessage = error.message;
@@ -126,7 +125,6 @@ const createDBObj = () => {
 
     //multiQuestion to Db
     else if (questions[i].classList.contains(`multi${i}`)) {
-      console.log(document.querySelector(`.ulForOpt${0}`).children);
       let optionsUl = document.querySelector(`.ulForOpt${i}`).children;
       let options = [];
       for (let i = 0; i < optionsUl.length; i++) {
@@ -179,7 +177,6 @@ const createQue = (qType) => {
     creRad("single", ["true", "false"], queDetailDiv);
   }
   if (qType == "multi") {
-    console.log(qType);
     queDetailDiv.appendChild(creUl(qType));
   }
 
@@ -209,7 +206,6 @@ const creRad = (type, opt, parent) => {
 
 // DOM FUCNTION 3: creating ul for multi Questions
 const creUl = (type) => {
-  console.log(type);
   //creating ul for options
   let ulForOpt = document.createElement("ul");
   ulForOpt.setAttribute("class", `ulForOpt${qNo}`);
@@ -234,7 +230,6 @@ const creUl = (type) => {
 };
 
 //Answers Link
-// let answers = []
 let ansDiv = document.querySelector(".repAns");
 //Answer Reteriving
 
@@ -246,9 +241,7 @@ const getReports = (uid) => {
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        // let ansDoc = doc.data().answers;
         docAns = doc.data();
-        console.log(docAns);
         showingRep(docAns);
       });
     });
@@ -256,10 +249,8 @@ const getReports = (uid) => {
 
 //showing ans
 const showingRep = (ansObj) => {
-  console.log("run");
   let answers = ansObj.answers;
   answers.forEach((ans) => {
-    console.log("inner run");
     let queDiv = eleCreator("div");
     queDiv.classList.add("queAns");
 
@@ -291,7 +282,6 @@ const showingRep = (ansObj) => {
     childAppendFun(queDiv, queAnchor);
     childAppendFun(queDiv, qDivText);
     childAppendFun(ansDiv, queDiv);
-    console.log(queDiv);
   });
 };
 

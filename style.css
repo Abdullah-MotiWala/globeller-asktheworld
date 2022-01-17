@@ -7,13 +7,6 @@
   box-sizing: border-box
 }
 
-/* 
-body {
-  width: 100vw;
-  overflow-x: hidden;
-} */
-
-/* index page */
 .adminDiv {
   width: 100vw;
   display: flex;
@@ -82,7 +75,6 @@ body {
   overflow-y: scroll;
 }
 
-/* report Questions page */
 .surHeader {
   display: flex;
   justify-content: space-between;
@@ -117,7 +109,9 @@ body {
 .info:focus {
   outline: none;
 }
-
+.startSur{
+  display: none;
+}
 .ansDiv {
   display: flex;
   flex-direction: column;
@@ -211,7 +205,6 @@ input.single {
   background: #1d3557;
 }
 
-/* btns */
 .hidden{
   display: none;
 }

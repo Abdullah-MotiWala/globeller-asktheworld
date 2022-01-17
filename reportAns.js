@@ -12,7 +12,6 @@ const getReports = () => {
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        // let ansDoc = doc.data().answers;
         answers = doc.data().answers;
         ansDiv.innerHTML = " ";
         getAns(answers);
@@ -32,13 +31,9 @@ const getAns = (ansArr) => {
 };
 
 const ansDet = (obj) => {
-  console.log(obj);
   for (let qType in obj) {
-    // console.log(qType == "userObj");
-
     if (qType != "userObj") {
       obj[qType].forEach((qNO) => {
-        console.log(obj[qType]);
         //div for questions
         let queDiv = eleCreator("div");
         queDiv.classList.add("queAnsDet");
@@ -50,9 +45,7 @@ const ansDet = (obj) => {
         answer(qNO, queDiv, qResDiv, qType);
         childAppendFun(queDiv, qResDiv);
         childAppendFun(ansDiv, queDiv);
-        console.log(queDiv);
       });
-      // }
     }
   }
 };
@@ -61,7 +54,7 @@ const answer = (qNo, qParent, aParent, qType) => {
   // question
   let qText = document.createTextNode(qNo.q);
   childAppendFun(qParent, qText);
-  //answera
+  //answers
   let txt = qNo.qResult;
 
   if (qType == "multiArrAns") {

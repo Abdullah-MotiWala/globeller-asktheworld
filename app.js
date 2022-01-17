@@ -1,6 +1,3 @@
-// let multiArr = [];
-// let singleArr = [];
-// let dataArr = [];
 const repDiv = document.querySelector(".reports");
 let questionsObj;
 
@@ -34,7 +31,6 @@ const showingRep = (queObj) => {
   childAppendFun(queDiv, queAnchor);
   childAppendFun(queDiv, qDivText);
   childAppendFun(repDiv, queDiv);
-  console.log(queDiv);
 };
 
 
