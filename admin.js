@@ -1,12 +1,12 @@
 const loginStatus = document.querySelector(".loginStatus");
 const quesDiv = document.querySelector(".quesAdd");
 const quesBtn = document.querySelector(".qBtn");
-let hidbtns = document.querySelector(".hidden")
-let nonHidbtns = document.querySelector(".nonHid")
+let hidbtns = document.querySelector(".hidden");
+let nonHidbtns = document.querySelector(".nonHid");
 let arr = [1, 2, 3];
 let qType;
 let qNo = 0;
-let uid = "i3gVHyk3HZN9BKliqJWVmc1XdC83";
+let uid;
 let docAns;
 
 //arr to send on firestore
@@ -41,18 +41,15 @@ const addQue = () => {
 //FIREBAE FUNC 1:authStateChange
 auth.onAuthStateChanged((user) => {
   if (user) {
-    nonHidbtns.style.display = "none"
-    hidbtns.style.display = "initial"
+    nonHidbtns.style.display = "none";
+    hidbtns.style.display = "initial";
     uid = user.uid;
     curEmail = user.email;
     document.querySelector(".loginStatus").innerHTML = user.email;
-    getReports(curEmail)
-    // quesObj.author = user.email
-    // quesObj.author = user.email;
-    // ...
+    getReports(curEmail);
   } else {
-    nonHidbtns.style.display = "initial"
-    hidbtns.style.display = "none"
+    nonHidbtns.style.display = "initial";
+    hidbtns.style.display = "none";
   }
 });
 
@@ -114,7 +111,8 @@ const createDBObj = () => {
     if (questions[i].classList.contains(`single${i}`)) {
       singleArr.push({
         q: document.querySelector(`.singleqBar${i}`).value,
-        isTrue: document.querySelector(`input[name = single${i}]:checked`).value ==
+        isTrue:
+          document.querySelector(`input[name = single${i}]:checked`).value ==
           "true"
       });
     }
@@ -152,6 +150,7 @@ const saveInDb = (obj) => {
     .collection("reports")
     .doc(timeStamp)
     .set({
+      reportName: document.querySelector(".reportName").value,
       uid: timeStamp,
       author: curEmail,
       questions: obj,
@@ -159,7 +158,8 @@ const saveInDb = (obj) => {
     })
     .then(() => {
       alert("Report saved");
-    })
+      document.querySelector(".quesSec").innerHTML = "";
+    })  
     .catch((error) => {
       alert("Error writing document: ", error);
     });
@@ -235,8 +235,7 @@ const creUl = (type) => {
 
 //Answers Link
 // let answers = []
-let ansDiv = document.querySelector(".repAns")
-
+let ansDiv = document.querySelector(".repAns");
 //Answer Reteriving
 
 //FIREBASE FUN 1: getting questions doc
@@ -248,47 +247,53 @@ const getReports = (uid) => {
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         // let ansDoc = doc.data().answers;
-        docAns = doc.data()
-        showingRep(docAns)
+        docAns = doc.data();
+        console.log(docAns);
+        showingRep(docAns);
       });
     });
 };
 
 //showing ans
 const showingRep = (ansObj) => {
-  console.log('run')
-  let answers = ansObj.answers
+  console.log("run");
+  let answers = ansObj.answers;
   answers.forEach((ans) => {
+    console.log("inner run");
     let queDiv = eleCreator("div");
-    queDiv.classList.add("queAns")
+    queDiv.classList.add("queAns");
 
     let queAnchor = eleCreator("a");
-    queAnchor.setAttribute("href", `reportAns.html?report=${ansObj.reportName}?user=${(ans.userObj.name).split(" ").join("")}`);
+    queAnchor.setAttribute(
+      "href",
+      `reportAns.html?report=${ansObj.reportName}?user=${ans.userObj.name
+        .split(" ")
+        .join("")}`
+    );
     let anchorText = document.createTextNode("Look Answers");
-    queAnchor.classList.add("repAnchor")
+    queAnchor.classList.add("repAnchor");
     childAppendFun(queAnchor, anchorText);
 
-    let qDivText = eleCreator("div")
-    qDivText.classList.add("ansInfo")
+    let qDivText = eleCreator("div");
+    qDivText.classList.add("ansInfo");
 
-    let qDivUser = eleCreator("div")
-    let usrTxt = document.createTextNode(`User : ${ans.userObj.name}`)
-    childAppendFun(qDivUser, usrTxt)
-    
-    let qDivReport = eleCreator("div")
-    let repoTxt = document.createTextNode(`Report : ${ansObj.reportName}`)
-    childAppendFun(qDivReport, repoTxt)
+    let qDivUser = eleCreator("div");
+    let usrTxt = document.createTextNode(`User : ${ans.userObj.name}`);
+    childAppendFun(qDivUser, usrTxt);
 
-    childAppendFun(qDivText, qDivUser)
-    childAppendFun(qDivText, qDivReport)
+    let qDivReport = eleCreator("div");
+    let repoTxt = document.createTextNode(`Report : ${ansObj.reportName}`);
+    childAppendFun(qDivReport, repoTxt);
+
+    childAppendFun(qDivText, qDivUser);
+    childAppendFun(qDivText, qDivReport);
 
     childAppendFun(queDiv, queAnchor);
     childAppendFun(queDiv, qDivText);
     childAppendFun(ansDiv, queDiv);
     console.log(queDiv);
-  })
+  });
 };
-
 
 const eleCreator = (ele) => document.createElement(ele);
 const childAppendFun = (parent, child) => parent.appendChild(child);

@@ -273,14 +273,14 @@ const addAns = () => {
 
       //for data Ques
       if (questions[i].classList.contains("data")) {
-        let answer = document.querySelector(`.queData`).value;
+        let qResult = document.querySelector(`.queData`).value;
         console.log(answer);
         let q = questions[i].childNodes[1].textContent;
         let qNo = questions[i].childNodes[0].textContent;
 
         dataArrAns.push({
           q,
-          answer
+          qResult
         });
       }
     }
