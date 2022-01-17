@@ -6,6 +6,7 @@
   margin: 0;
   box-sizing: border-box
 }
+
 /* 
 body {
   width: 100vw;
@@ -20,7 +21,7 @@ body {
   margin: 10px auto;
 }
 
-.reportHeader {
+.header {
   text-align: center;
   color: #1d3557;
   padding: 5px;
@@ -30,7 +31,9 @@ body {
 
 .adminBtn,
 .startSur,
-.submitRep {
+.submitRep,
+.saveBtn,
+.approved {
   background-color: #1d3557;
   padding: 5px;
   border-radius: 5px;
@@ -49,7 +52,7 @@ body {
   display: none;
 }
 
-.queReport, .queAns {
+.queReport, .queAns, .queAnsDet {
   background-color: #a8dadc;
   color: #457b9d;
   display: flex;
@@ -62,7 +65,7 @@ body {
   padding: 10px;
 }
 
-.repAnchor {
+.repAnchor, .repAns {
   color: #e63946;
   text-decoration: none;
   font-weight: bold;
@@ -71,6 +74,12 @@ body {
   border-radius: 5px;
   margin-right: 12px;
   min-width: 40%;
+}
+
+.quesSec {
+  margin-top: 5px;
+  height: 50vh;
+  overflow-y: scroll;
 }
 
 /* report Questions page */
@@ -174,4 +183,35 @@ input.single {
   border-radius: 5px;
   min-height: 50px;
   min-width: 50px;
+}
+
+.ansInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.repAns {
+  font-weight: bold;
+}
+
+.approved {
+  background-color: #e63946;
+  margin: auto;
+}
+
+.repAnsDiv, .quesAddDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  overflow-y: scroll;
+}
+
+.quesAddDiv {
+  background: #1d3557;
+}
+
+/* btns */
+.hidden{
+  display: none;
 }

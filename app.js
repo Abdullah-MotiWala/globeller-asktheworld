@@ -16,6 +16,8 @@ const getReports = () => {
       });
     });
 };
+
+
 getReports();
 //showing reports
 const showingRep = (queObj) => {

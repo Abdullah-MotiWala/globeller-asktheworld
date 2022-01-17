@@ -1,10 +1,13 @@
 const loginStatus = document.querySelector(".loginStatus");
 const quesDiv = document.querySelector(".quesAdd");
 const quesBtn = document.querySelector(".qBtn");
+let hidbtns = document.querySelector(".hidden")
+let nonHidbtns = document.querySelector(".nonHid")
 let arr = [1, 2, 3];
 let qType;
 let qNo = 0;
 let uid = "i3gVHyk3HZN9BKliqJWVmc1XdC83";
+let docAns;
 
 //arr to send on firestore
 let singleArr = [];
@@ -38,6 +41,8 @@ const addQue = () => {
 //FIREBAE FUNC 1:authStateChange
 auth.onAuthStateChanged((user) => {
   if (user) {
+    nonHidbtns.style.display = "none"
+    hidbtns.style.display = "initial"
     uid = user.uid;
     curEmail = user.email;
     document.querySelector(".loginStatus").innerHTML = user.email;
@@ -46,7 +51,8 @@ auth.onAuthStateChanged((user) => {
     // quesObj.author = user.email;
     // ...
   } else {
-    document.querySelector(".loginStatus").innerHTML = "Not Logged In";
+    nonHidbtns.style.display = "initial"
+    hidbtns.style.display = "none"
   }
 });
 
@@ -241,25 +247,41 @@ const getReports = (uid) => {
     .get()
     .then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        let ansDoc = doc.data().answers;
-        showingRep(ansDoc)
+        // let ansDoc = doc.data().answers;
+        docAns = doc.data()
+        showingRep(docAns)
       });
     });
 };
 
 //showing ans
 const showingRep = (ansObj) => {
-  ansObj.forEach((ans) => {
+  console.log('run')
+  let answers = ansObj.answers
+  answers.forEach((ans) => {
     let queDiv = eleCreator("div");
     queDiv.classList.add("queAns")
 
     let queAnchor = eleCreator("a");
-    queAnchor.setAttribute("href", `reportAns.html?user=${ans.userObj.name}`);
+    queAnchor.setAttribute("href", `reportAns.html?report=${ansObj.reportName}?user=${(ans.userObj.name).split(" ").join("")}`);
     let anchorText = document.createTextNode("Look Answers");
     queAnchor.classList.add("repAnchor")
     childAppendFun(queAnchor, anchorText);
 
-    let qDivText = document.createTextNode(`user : ${ans.userObj.name}`);
+    let qDivText = eleCreator("div")
+    qDivText.classList.add("ansInfo")
+
+    let qDivUser = eleCreator("div")
+    let usrTxt = document.createTextNode(`User : ${ans.userObj.name}`)
+    childAppendFun(qDivUser, usrTxt)
+    
+    let qDivReport = eleCreator("div")
+    let repoTxt = document.createTextNode(`Report : ${ansObj.reportName}`)
+    childAppendFun(qDivReport, repoTxt)
+
+    childAppendFun(qDivText, qDivUser)
+    childAppendFun(qDivText, qDivReport)
+
     childAppendFun(queDiv, queAnchor);
     childAppendFun(queDiv, qDivText);
     childAppendFun(ansDiv, queDiv);
